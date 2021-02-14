@@ -27,17 +27,7 @@
       registerForm.addEventListener("submit", registerUser);
 
       async function registerUser(e) {
-        // why preventDefault? because the default behaviour is that after submitting the page gets
-        // refreshed, but we don't want that; we want to send the data to the backend when we hit submit
-        // button and then redirect to another page
         e.preventDefault();
-
-        // how to send form data to backend?
-        // 1. send data as JSON (very common in Javascript)
-        // 2. send data as urlencoded(this is the default way) => here we have to specify the
-        // "method" and "action" attribute of the form element
-
-        // we will use JSON here
 
         const response = await fetch("/api/register", {
           method: "POST",
