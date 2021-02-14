@@ -1,0 +1,10 @@
+Client -> Server
+Data from client gets stored in Server
+Client has to somehow authenticate as who it is 
+Why? => Server is a central computer which is something that I control(I am writing the backend of this app)
+Client is a computer that I do not control
+So there must be some sort of verification
+
+There are  ways to authenticate:
+1. Client proves itself with some secret/data(which is non changeable) (JWT)
+2. Client-Server share some secret(cookie)

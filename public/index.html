@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Authentication with Node.js | Login</title>
+  </head>
+  <body>
+    <h1>Registration</h1>
+    <form id="register-form">
+      <label for="name">Name</label>
+      <input type="text" id="name" placeholder="Enter your name" />
+      <label for="username">Username</label>
+      <input type="text" id="username" placeholder="Username" />
+      <label for="password">Password</label>
+      <input type="password" id="password" placeholder="Password" />
+      <button type="submit">Submit</button>
+    </form>
+
+    <script>
+      const registerForm = document.getElementById("register-form");
+      const name = document.getElementById("name");
+      const username = document.getElementById("username");
+      const password = document.getElementById("password");
+
+      registerForm.addEventListener("submit", registerUser);
+
+      async function registerUser(e) {
+        // why preventDefault? because the default behaviour is that after submitting the page gets
+        // refreshed, but we don't want that; we want to send the data to the backend when we hit submit
+        // button and then redirect to another page
+        e.preventDefault();
+
+        // how to send form data to backend?
+        // 1. send data as JSON (very common in Javascript)
+        // 2. send data as urlencoded(this is the default way) => here we have to specify the
+        // "method" and "action" attribute of the form element
+
+        // we will use JSON here
+
+        const response = await fetch("/api/register", {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify({
+            name: name.value,
+            username: username.value,
+            password: password.value,
+          }),
+        }).then((res) => res.json());
+
+        if (response.status === "ok") {
+          alert("Registration successful");
+        } else {
+          alert(response.error);
+        }
+      }
+    </script>
+  </body>
+</html>

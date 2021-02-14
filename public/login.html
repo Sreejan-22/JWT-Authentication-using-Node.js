@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Authentication with Node.js | Login</title>
+  </head>
+  <body>
+    <h1>Login</h1>
+    <form id="login-form">
+      <label for="username">Username</label>
+      <input type="text" id="username" placeholder="Username" />
+      <label for="password">Password</label>
+      <input type="password" id="password" placeholder="Password" />
+      <input type="submit" value="Submit" />
+    </form>
+
+    <script>
+      const loginForm = document.getElementById("login-form");
+      loginForm.addEventListener("submit", loginUser);
+
+      async function loginUser(e) {
+        e.preventDefault();
+
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+
+        const response = await fetch("/api/login", {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify({
+            username,
+            password,
+          }),
+        }).then((res) => res.json());
+
+        if (response.status === "ok") {
+          console.log("Got the data: ", response.data);
+          localStorage.setItem("token", response.data);
+          alert("Welcome");
+        } else {
+          alert(response.error);
+        }
+      }
+    </script>
+  </body>
+</html>
