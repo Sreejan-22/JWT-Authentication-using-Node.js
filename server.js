@@ -19,7 +19,7 @@ const app = express();
 app.use("/", express.static(path.join(__dirname, "public")));
 
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(bodyParser.json()); // Returns middleware that only parses json and only looks at requests where the Content-Type header matches the type option.
 
 //change password
 app.post("/api/change-password", async (req, res) => {
